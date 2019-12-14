@@ -1,0 +1,33 @@
+1.	Найти студентов, проживающих в блоке 605.
+MATCH (n)-[r: live]-(m) WHERE m.value=605 RETURN n, r, m
+
+2.	Показать общежития и их комнаты
+MATCH (n:hostel)-[r]-(m:room) RETURN n, r, m
+ 
+3.	Показать все пары Фамилия-Имя
+MATCH (n:firstName)-[r: is]-(m:secondName)  RETURN n, r, m
+
+4.	Показать тех, кто имеет льготу «ЧАЭС» и проживает в 1 общежитии.
+MATCH (n)-[b:privilegeCategory]-(a:firstName)-[m]-(r:hostel) WHERE n.name="ЧАЭС" AND r.value=1 RETURN n,b,a,m,r
+
+5.	Показать все группы студентов, которые проживают в блоке 605
+MATCH (n:group)-[b]-(a:firstName)-[m]-(r:room) WHERE r.value=605 RETURN n
+
+6.	Показать всех студентов, у которых совпадают группы
+MATCH (a:group)-[i]-(o:firstName)
+MATCH (b:group)-[c]-(d:firstName)
+WHERE b.value = a.value
+RETURN a,b,i,o,c,d
+
+7.	Показать все узлы, начинающиеся с буквы “К”
+MATCH (n) WHERE n.name STARTS WITH 'К' RETURN n
+
+8.	Показать расселение по комнатам и общежитиям
+MATCH (n:hostel)-[r]-(m:firstName)-[a]-(b:room) RETURN n,r,m,a,b
+ 
+9.	Показать все пары, у которых отношение «Это»
+MATCH (n)-[p]-(m) WHERE p.name='Это' RETURN n,p,m
+ 
+10.	 Показать всех студентов, которые живут в 1 общежитии и у которых номер комнаты больше, чем 601
+ MATCH (n:hostel)-[p]-(m:firstName)-[a]-(b:room) WHERE n.value=1 AND b.value>601 RETURN n,p,m
+
