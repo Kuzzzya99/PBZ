@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/resources/task1/1_delete.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/task1/2_create.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/task1/3_create_tables.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/task1/4_fill_tables.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/task1/5_requests.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/task2/5_requests.sql" dialect="MySQL" />
+  </component>
+</project>
