@@ -1,0 +1,43 @@
+CREATE DATABASE PBZ2;
+USE PBZ2;
+CREATE TABLE workers(FIO VARCHAR(30) PRIMARY KEY NOT NULL,
+					 DIVISION_NAME VARCHAR(30) NOT NULL,
+					 POSITION VARCHAR(20) NOT NULL);
+INSERT INTO workers VALUES
+	('Иванов Иван Иванович', 'Подразделение 1', 'Должность 1'),
+	('Андреев Андрей Андреевич', 'Подразделение 1', 'Должность 1'),
+	('Булка Александр Иванович', 'Подразделение 1', 'Должность 1'),
+	('Голубев Алексей Максимович', 'Подразделение 1', 'Должность 2'),
+	('Гончар Артем Игоревич', 'Подразделение 1', 'Должность 2'),
+	('Петров Василий Евгеньевич', 'Подразделение 2', 'Должность 1'),
+	('Васьков Сергей Иванович', 'Подразделение 2', 'Должность 2'),
+	('Волях Игорь Михайлович', 'Подразделение 2', 'Должность 2'),
+	('Михасик Анастасия Игоревна', 'Подразделение 2', 'Руководитель');
+SELECT * FROM workers;
+CREATE TABLE orders(ORDER_ID SMALLINT PRIMARY KEY NOT NULL,
+					DATE_OF_ADOPTION DATE,
+                    CONTENT VARCHAR(100),
+                    FIO VARCHAR(30) NOT NULL,
+					FOREIGN KEY (FIO)  REFERENCES workers (FIO));
+INSERT INTO orders VALUES
+	(1, '2019-09-21', 'Организация корпоратива', 'Волях Игорь Михайлович'),
+    (2, '2019-10-19', 'День рождения начальника', 'Михасик Анастасия Игоревна'),
+	(3, '2019-12-11', 'День рождения Васи', 'Михасик Анастасия Игоревна');
+SELECT * FROM orders;
+CREATE TABLE orderevents(ORDEREVENT VARCHAR(100) PRIMARY KEY NOT NULL,
+						ORDER_ID SMALLINT NOT NULL,
+						DATE_OF_FINISHING DATE,
+						MARK ENUM('Y', 'N') NOT NULL,
+						FIO VARCHAR(30) NOT NULL,
+						FOREIGN KEY (FIO)  REFERENCES workers (FIO),
+						FOREIGN KEY (ORDER_ID)  REFERENCES orders (ORDER_ID)); 
+INSERT INTO orderevents VALUES
+	('Покупка сахарной ваты', 1, '2019-12-01', 'N', 'Иванов Иван Иванович'),
+	('Заказать тамаду', 2, '2019-10-21', 'Y', 'Андреев Андрей Андреевич'),
+    ('Купить торт', 2, '2019-10-25', 'Y', 'Андреев Андрей Андреевич'),
+	('Организация', 3, '2019-12-01', 'Y', 'Булка Александр Иванович');
+SELECT * FROM orderevents;
+
+
+ЗАДАНИЕ:
+SELECT orders.DATE_OF_ADOPTION, orderevents.ORDEREVENT, orderevents.mark, orderevents.DATE_OF_FINISHING, orderevents.FIO, workers.POSITION, workers.DIVISION_NAME FROM ((orderevents INNER JOIN orders USING (ORDER_ID)) INNER JOIN workers ON workers.FIO=orderevents.FIO) WHERE orderevents.mark='N' AND DATE_OF_FINISHING='2019-12-01';
